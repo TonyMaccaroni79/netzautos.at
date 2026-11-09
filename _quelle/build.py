@@ -188,6 +188,7 @@ def artikel_seite(a, alle):
 </div>
 <aside class="tools-box"><p class="eyebrow">Kostenloses Werkzeug</p><div class="row"><a class="btn primary" href="/foerder-check/">Förder-Check für Ihr Bundesland</a></div></aside>
 <section class="weiter"><h2>Weitere Ratgeber</h2><ul>{weitere}</ul></section>
+{newsletter_box(path)}
 </div>"""
     return seite(a["seo"], a["desc"], path, graph, inhalt, current="/ratgeber/", ogtype="article")
 
@@ -284,6 +285,8 @@ def startseite():
 <h2 class="h2" style="margin-bottom:28px">Gründlich statt oberflächlich</h2>
 <div class="grid4">{karten}</div>
 </div></section>
+
+<section><div class="w narrow pad-s">{newsletter_box("/")}</div></section>
 
 <section id="fragen" aria-labelledby="faq-titel"><div class="w narrow pad">
 <p class="eyebrow">Häufige Fragen</p>
@@ -395,6 +398,58 @@ def rechner():
                  "Förder-Check 2026: Welche Förderung es in Ihrem Bundesland für den Kauf eines E-Autos und für eine Wallbox gibt. Alle 9 Bundesländer, mit Quellen.",
                  path, graph, inhalt + RECHNER_JS, current="/foerder-check/")
 
+
+# ---------- Formulare (gleicher Aufbau wie daheimklar.at; Logik in /api) ----------
+
+def _einwilligung(art):
+    s = (ROOT / "api" / "_site.js").read_text(encoding="utf-8")
+    return re.search(art + r": \['v\d+', '(.*?)'\]", s).group(1)
+
+def newsletter_box(quelle):
+    return f"""<section class="nl-box" aria-labelledby="nl-titel">
+<p class="eyebrow">Neue Ratgeber per E-Mail</p>
+<h2 id="nl-titel">Bleiben Sie auf dem aktuellen Stand</h2>
+<p>Höchstens einmal im Monat: neue Ratgeber und Änderungen bei Regeln und Fristen. Kein Spam, jederzeit abbestellbar.</p>
+<form method="post" action="/api/lead">
+<input type="hidden" name="typ" value="newsletter">
+<input type="hidden" name="quelle" value="{html.escape(quelle)}">
+<div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+<div class="nl-row"><label class="sr" for="nl-email">E-Mail-Adresse</label><input id="nl-email" type="email" name="email" required autocomplete="email" placeholder="Ihre E-Mail-Adresse"><button class="btn primary" type="submit">Anmelden</button></div>
+<label class="nl-check"><input type="checkbox" name="newsletter" value="ja" required> <span>{html.escape(_einwilligung("newsletter"))}</span></label>
+<p class="hint">Wir verwenden Ihre Adresse nur dafür. <a href="/datenschutz/">Datenschutz</a></p>
+</form>
+</section>"""
+
+def info_seite(path, titel, text, links=True):
+    weiter = '<p><a href="/">Zur Startseite</a> · <a href="/ratgeber/">Ratgeber lesen</a></p>' if links else ""
+    inhalt = f"""<div class="w narrow legal" style="padding-block:56px 72px">
+<h1 style="font-size:clamp(30px,4vw,42px)">{titel}</h1>
+{text}
+{weiter}
+</div>"""
+    return seite(f"{titel} | {NAME}", titel, path, None, inhalt, robots="noindex, nofollow")
+
+FORM_SEITEN = {
+    "danke/index.html": ("/danke/", "Danke, Ihre Anfrage ist angekommen.",
+        "<p>Wir melden uns innerhalb eines Werktags bei Ihnen.</p>"),
+    "fehler/index.html": ("/fehler/", "Das hat leider nicht geklappt.",
+        "<p>Bitte prüfen Sie Ihre Angaben und versuchen Sie es noch einmal. Klappt es wieder nicht, schreiben Sie uns an office@frabanto.eu.</p>"),
+    "newsletter-pruefen/index.html": ("/newsletter-pruefen/", "Fast geschafft: Bitte bestätigen Sie Ihre Anmeldung.",
+        "<p>Wir haben Ihnen eine E-Mail mit einem Bestätigungslink geschickt. Erst nach Ihrem Klick bekommen Sie unsere Ratgeber. Keine E-Mail da? Sehen Sie bitte auch im Spam-Ordner nach.</p>"),
+    "newsletter-bestaetigt/index.html": ("/newsletter-bestaetigt/", "Danke, Ihre Anmeldung ist bestätigt.",
+        "<p>Sie bekommen höchstens einmal im Monat neue Ratgeber und Änderungen. Abmelden geht mit einem Klick in jeder E-Mail.</p>"),
+}
+
+DATENSCHUTZ_FORMULARE = """<h2>Newsletter</h2>
+<p>Den Newsletter senden wir nur nach Bestätigung per E-Mail (Double-Opt-in, Art. 6 Abs. 1 lit. a DSGVO, § 174 TKG 2021). Wir speichern Ihre E-Mail-Adresse, den Zeitpunkt und den Text Ihrer Einwilligung als Nachweis. Bestätigen Sie die Anmeldung nicht, löschen wir die Adresse nach 6 Monaten. Abmelden können Sie sich jederzeit über den Link in jeder E-Mail.</p>
+<h2>Anfragen</h2>
+<p>Wenn Sie uns über ein Formular eine Anfrage schicken, speichern wir Ihre Angaben (Name, Kontaktdaten, Anliegen, Bundesland, Postleitzahl, Ihre freiwillige Nachricht) auf Grundlage Ihrer Einwilligung bzw. Ihrer Anfrage (Art. 6 Abs. 1 lit. a und b DSGVO). Ohne Auftrag löschen wir die Anfrage nach 6 Monaten. Über jede neue Anfrage werden wir per E-Mail an unser eigenes Postfach informiert.</p>
+<h2>Schutz vor Missbrauch</h2>
+<p>Zu jedem abgesendeten Formular speichern wir eine gekürzte IP-Adresse (die letzte Stelle ist entfernt), um Spam und Missbrauch zu erkennen (Art. 6 Abs. 1 lit. f DSGVO).</p>
+<h2>Speicherort und E-Mail-Versand</h2>
+<p>Formulardaten werden in einem privaten Speicher von Vercel in Frankfurt am Main abgelegt. E-Mails versenden wir über unseren E-Mail-Anbieter.</p>
+"""
+
 # ---------- Rechtliches ----------
 
 LEGAL_CSS = '<style>.legal h2{font-size:21px;margin:32px 0 8px}.legal p,.legal li{color:var(--body)}</style>\n'
@@ -425,8 +480,8 @@ def datenschutz():
 <p>Beim Aufruf verarbeitet der Server technisch notwendige Daten (IP-Adresse, Zeitpunkt, aufgerufene Seite, Browser), um die Seite auszuliefern und vor Missbrauch zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Diese technischen Protokolle werden nur kurzfristig gespeichert. Wir setzen keine Cookies, keine Analyse- oder Werbedienste ein und binden keine Schriften oder Skripte fremder Anbieter ein.</p>
 <h2>Förder-Check</h2>
 <p>Ihre Auswahl im Förder-Check werden ausschließlich in Ihrem Browser verarbeitet. Sie werden nicht an uns übertragen und nicht gespeichert.</p>
-<h2>Hosting</h2>
-<p>Die Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA, gehostet (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse an einem sicheren und zuverlässigen Betrieb). Da Vercel ein US-Unternehmen ist, kann ein Zugriff aus den USA nicht ausgeschlossen werden. Vercel ist nach dem EU-US Data Privacy Framework zertifiziert; für diese Übermittlung besteht damit ein Angemessenheitsbeschluss der EU-Kommission (Art. 45 DSGVO).</p>
+""" + DATENSCHUTZ_FORMULARE + """<h2>Hosting</h2>
+<p>Die Website und die Formulare werden bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA, gehostet (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse an einem sicheren und zuverlässigen Betrieb). Da Vercel ein US-Unternehmen ist, kann ein Zugriff aus den USA nicht ausgeschlossen werden. Vercel ist nach dem EU-US Data Privacy Framework zertifiziert; für diese Übermittlung besteht damit ein Angemessenheitsbeschluss der EU-Kommission (Art. 45 DSGVO).</p>
 <h2>Ihre Rechte</h2>
 <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Wenden Sie sich dazu an office@frabanto.eu. Beschwerden können Sie bei der Österreichischen Datenschutzbehörde einbringen (<a href="https://www.dsb.gv.at/">dsb.gv.at</a>).</p>
 </div>"""
@@ -494,5 +549,7 @@ if __name__ == "__main__":
     schreibe("impressum/index.html", impressum())
     schreibe("datenschutz/index.html", datenschutz())
     schreibe("404.html", nicht_gefunden())
+    for rel, (pfad, titel, text) in FORM_SEITEN.items():
+        schreibe(rel, info_seite(pfad, titel, text))
     schreibe("sitemap.xml", sitemap(ARTIKEL))
     schreibe("llms.txt", llms(ARTIKEL))

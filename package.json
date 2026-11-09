@@ -1,0 +1,10 @@
+{
+  "name": "netzautos",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "dependencies": {
+    "@vercel/blob": "2.8.1",
+    "nodemailer": "7.0.6"
+  }
+}

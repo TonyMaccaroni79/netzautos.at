@@ -3,6 +3,11 @@
 
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /danke/
+Disallow: /fehler/
+Disallow: /newsletter-pruefen/
+Disallow: /newsletter-bestaetigt/
 
 User-agent: Googlebot
 Allow: /

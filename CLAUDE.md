@@ -11,6 +11,11 @@ Ratgeber-Seite für den Kauf gebrauchter Elektroautos in Österreich (Förderung
 - Schrift lokal; keine Fremd-Skripte, keine Cookies. Auf `*.vercel.app` liefert `vercel.json` `X-Robots-Tag: noindex`.
 - Neue Seite: IndexNow anpingen: `https://api.indexnow.org/indexnow?url=<neue URL>&key=d2163f435a405db0cf2e3ddc8bd1ce64`.
 
+## Formulare (gleicher Aufbau wie daheimklar.at)
+- `api/` = Vercel Functions: `lead.js` (typ=newsletter mit Double-Opt-in; typ=anfrage nur mit Umgebungsvariable `ANFRAGEN_AKTIV=1`), `bestaetigen.js`, `abmelden.js`, `aufraeumen.js` (Cron täglich, löscht nach 180 Tagen), `export.js` (CSV mit `?key=`), `health.js`. Seitenspezifisches (Einwilligungstexte, Anliegen) in `api/_site.js`; Textänderung = Version erhöhen.
+- Speicher: privater Vercel-Blob-Store (`BLOB_READ_WRITE_TOKEN`). Umgebungsvariablen: `SITE_BASE_URL` (nach Domain-Anbindung auf die echte Domain ändern), `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `NOTIFY_TO`, `EXPORT_KEY`, `CRON_SECRET`, optional `ANFRAGEN_AKTIV`.
+- Newsletter-Box: `newsletter_box()` in `_quelle/build.py` (Startseite und Artikel). Danke-/Fehler-/Newsletter-Seiten erzeugt `build.py` (`FORM_SEITEN`).
+
 ## Hosting-Regel (Vercel Hobby)
 - Solange das Projekt im Gratis-Plan läuft: keine Preise, Kaufbuttons, Elektriker-/Lead-Formulare, Werbung oder Affiliate-Links. Kommerzielle Teile (E-Auto-Check-Report, Wallbox-Angebote) erst nach Umzug auf Hetzner oder Vercel Pro.
 
