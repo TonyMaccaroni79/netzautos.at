@@ -1,0 +1,25 @@
+# netzautos
+
+> Unabhängiger Ratgeber für den Kauf gebrauchter Elektroautos in Österreich. Erklärt Förderungen nach Bundesland, NoVA, Wallbox und Laden daheim, mit Quellenangaben und Prüfdatum.
+
+netzautos.at richtet sich an Menschen in Österreich, die ein gebrauchtes E-Auto kaufen und daheim laden wollen. Alle Inhalte beziehen sich auf österreichische Regeln und Förderungen.
+
+Kernfakten (Stand 9. November 2026):
+- Keine Kaufprämie des Bundes für Privatpersonen 2026. Das Programm „E-Mobilität für Private 2024“ endete vorzeitig, das Nachfolgeprogramm (nur E-Zweiräder und Ladeinfrastruktur) lief am 31. März 2026 aus.
+- Burgenland ist 2026 das einzige Bundesland mit Kaufförderung für Privatpersonen: 10 % des Anschaffungspreises, höchstens 2.000 €, Preis bis 50.000 €, nur Neuanschaffung (Klasse M1), Antrag binnen 6 Monaten ab Rechnung.
+- Wallbox im Einfamilienhaus: nur Burgenland (30 %, höchstens 300 €) und Steiermark (30 %, höchstens 300 €; 11 kW, intelligent, Ökostrom oder PV ab 1,5 kWp, 7 Jahre Betrieb). Vorarlberg fördert nur Mehrparteienhäuser (300 € je Stellplatz, höchstens 10.000 €).
+- E-Autos sind von der NoVA befreit (0 g CO₂/km), auch beim Import eines Gebrauchtwagens. Motorbezogene Versicherungssteuer gilt seit 1. April 2025 auch für E-Autos.
+- Ladestationen über 3,68 kVA sind beim Netzbetreiber meldepflichtig; bei Netz NÖ zusätzlich Genehmigung ab 10 kW.
+
+## Seiten
+
+- [Startseite](https://netzautos.at/): Überblick, Kernfakten 2026, drei Schritte zum gebrauchten E-Auto, häufige Fragen
+- [Förder-Check](https://netzautos.at/foerder-check/): Förderungen für E-Auto-Kauf und Wallbox in allen 9 Bundesländern
+- [Ratgeber-Übersicht](https://netzautos.at/ratgeber/): alle Artikel
+- [E-Auto-Förderung Österreich 2026: Was es noch gibt](https://netzautos.at/ratgeber/e-auto-foerderung-oesterreich/): Keine Bundesprämie mehr: Was 2026 für E-Autos in Österreich noch gefördert wird, Burgenland mit 2.000 €, NoVA-Befreiung und was für Gebrauchte gilt.
+- [Wallbox in Österreich: Kosten, Förderung 2026, Anmeldung](https://netzautos.at/ratgeber/wallbox-kosten-foerderung/): Wallbox-Förderung 2026 nach Bundesland (Burgenland, Steiermark), Meldepflicht beim Netzbetreiber ab 3,68 kVA und was die Installation teurer macht.
+
+## Optional
+
+- [Impressum](https://netzautos.at/impressum/)
+- [Datenschutz](https://netzautos.at/datenschutz/)
