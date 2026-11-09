@@ -37,8 +37,10 @@ WEBSITE = {"@type": "WebSite", "@id": f"{SITE}/#website", "url": f"{SITE}/", "na
            "inLanguage": "de-AT", "publisher": {"@id": f"{SITE}/#organization"}}
 
 LOGO = ('<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="var(--accent)"/>'
-        '<path d="M8 17l9-7 9 7M11 15.5V25h12v-9.5M15 25v-5h4v5" fill="none" stroke="var(--accent-ink)" stroke-width="2.2" '
-        'stroke-linecap="round" stroke-linejoin="round"/></svg>')
+        '<path d="M8 22h18v-5l-2.5-6h-13L8 17v5z" fill="none" stroke="var(--accent-ink)" stroke-width="2" stroke-linejoin="round"/>'
+        '<circle cx="12" cy="22.5" r="2.2" fill="var(--accent)" stroke="var(--accent-ink)" stroke-width="2"/>'
+        '<circle cx="22" cy="22.5" r="2.2" fill="var(--accent)" stroke="var(--accent-ink)" stroke-width="2"/>'
+        '<path d="M17.5 11.5l-2 3.5h3l-2 3.5" fill="none" stroke="#A3E635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 def header(current=""):
     def a(href, text):
